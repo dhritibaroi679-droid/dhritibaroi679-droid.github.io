@@ -1,217 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dhriti's Website</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      text-align: center;
-      font-family: "Comic Sans MS", "Segoe Print", cursive, sans-serif;
-      color: #5b3a4a;
-      background: linear-gradient(160deg, #ffe3ef, #e9defa 55%, #d9f1ff);
-      overflow-x: hidden;
-    }
-    h1 { margin: 30px 10px 6px; font-size: 2.2rem; }
-    p { margin: 0 10px 10px; font-size: 1.1rem; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dhriti's Website</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;text-align:center;font-family:"Comic Sans MS","Segoe Print",cursive,sans-serif;color:#5b3a4a;background:linear-gradient(160deg,#ffe3ef,#e9defa 55%,#d9f1ff);overflow-x:hidden}
+p{margin:0 10px 10px;font-size:1.1rem}
+.page{position:relative;z-index:1;padding:10px 10px 50px}
 
-    /* ---------- Beating heart ---------- */
-    .heart {
-      width: 210px;
-      display: block;
-      margin: 20px auto;
-      filter: drop-shadow(0 8px 14px rgba(255, 60, 110, .45));
-      animation: beat 1.2s ease-in-out infinite;
-    }
-    @keyframes beat {
-      0%, 100% { transform: scale(1); }
-      15%      { transform: scale(1.18); }
-      30%      { transform: scale(1); }
-      45%      { transform: scale(1.12); }
-      60%      { transform: scale(1); }
-    }
+/* background cartoons */
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.fly{position:absolute;left:-90px;animation:cross linear infinite,bob ease-in-out infinite}
+@keyframes cross{to{left:105vw}}
+@keyframes bob{50%{transform:translateY(-18px) rotate(6deg)}}
+.star{position:absolute;color:#fff;text-shadow:0 0 8px #ffd1e6;animation:tw 2s ease-in-out infinite}
+@keyframes tw{50%{opacity:.2;transform:scale(.6)}}
+.rise{position:absolute;bottom:-40px;font-size:22px;opacity:.8;animation:rise 9s linear infinite}
+@keyframes rise{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
 
-    /* ---------- Scene (mountains) ---------- */
-    .scene {
-      width: 92%;
-      max-width: 640px;
-      margin: 20px auto;
-      border: 3px solid #7a5560;
-      border-radius: 22px;
-      overflow: hidden;
-      background: #bfe6ff;
-      box-shadow: 0 6px 0 #7a5560;
-    }
-    .scene svg { display: block; width: 100%; height: auto; }
-    .sun-rays { transform-box: fill-box; transform-origin: center; animation: spin 20s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .cloud1 { animation: drift 18s linear infinite; }
-    .cloud2 { animation: drift 26s linear infinite; animation-delay: -10s; }
-    @keyframes drift {
-      from { transform: translateX(-160px); }
-      to   { transform: translateX(760px); }
-    }
-    .bird { animation: fly 9s linear infinite; }
-    @keyframes fly {
-      from { transform: translate(-60px, 0); }
-      50%  { transform: translate(300px, -14px); }
-      to   { transform: translate(700px, 0); }
-    }
+/* name popup */
+.ov{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;background:rgba(255,235,245,.88);backdrop-filter:blur(6px);transition:opacity .5s}
+.ov.hide{opacity:0;pointer-events:none}
+.card{background:#fff;border:3px solid #7a5560;border-radius:28px;box-shadow:0 8px 0 #7a5560;padding:22px;width:90%;max-width:340px;animation:drop 1s cubic-bezier(.3,1.5,.5,1)}
+@keyframes drop{from{transform:translateY(-120vh) rotate(-10deg)}to{transform:none}}
+.card h2{margin:6px 0 12px}
+.card input{width:100%;font:inherit;font-size:1.1rem;padding:10px 14px;border:3px solid #7a5560;border-radius:16px;text-align:center;outline:none}
+button{font:inherit;font-size:1.05rem;margin-top:12px;padding:10px 22px;border:3px solid #7a5560;border-radius:999px;background:#ff8fb3;color:#fff;font-weight:bold;box-shadow:0 4px 0 #7a5560;cursor:pointer}
+button:active{transform:translateY(3px);box-shadow:0 1px 0 #7a5560}
 
-    /* ---------- Cakes ---------- */
-    .cakes {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin: 20px 10px;
-    }
-    .cake { width: 110px; animation: bob 2.4s ease-in-out infinite; }
-    @keyframes bob {
-      0%, 100% { transform: translateY(0) rotate(-3deg); }
-      50%      { transform: translateY(-12px) rotate(3deg); }
-    }
-    .flame {
-      transform-box: fill-box;
-      transform-origin: bottom center;
-      animation: flicker .5s ease-in-out infinite alternate;
-    }
-    @keyframes flicker {
-      from { transform: scale(1, 1) rotate(-6deg); }
-      to   { transform: scale(.85, 1.2) rotate(6deg); }
-    }
+/* greeting */
+#greet{margin:24px 10px 4px;font-size:2rem;min-height:2.6rem}
+#greet span{display:inline-block;white-space:pre;opacity:0;animation:pop .5s cubic-bezier(.3,1.6,.5,1) forwards}
+@keyframes pop{0%{opacity:0;transform:translateY(30px) scale(.3) rotate(-20deg)}100%{opacity:1;transform:none}}
 
-    /* ---------- Floating hearts and sparkles ---------- */
-    .float {
-      position: fixed;
-      bottom: -40px;
-      font-size: 22px;
-      opacity: .8;
-      animation: rise 9s linear infinite;
-      pointer-events: none;
-    }
-    @keyframes rise {
-      to { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
-    }
-  </style>
+/* thought bubble */
+.thought{position:relative;display:inline-block;max-width:340px;background:#fff;border:3px solid #7a5560;border-radius:22px;padding:12px 16px;margin:14px auto 22px;animation:up .6s}
+.thought:after{content:"";position:absolute;left:50%;bottom:-17px;width:16px;height:16px;background:#fff;border:3px solid #7a5560;border-radius:50%;transform:translateX(-50%)}
+@keyframes up{from{opacity:0;transform:translateY(12px)}}
+
+/* kitty */
+.kitty{width:130px;display:block;margin:0 auto;cursor:pointer;animation:wig 3s ease-in-out infinite}
+.card .kitty{width:100px}
+@keyframes wig{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.kitty.jump{animation:jump .9s}
+@keyframes jump{40%{transform:translateY(-60px) rotate(180deg)}70%{transform:translateY(-60px) rotate(360deg)}100%{transform:rotate(360deg)}}
+
+/* heart */
+.hw{position:relative;width:210px;margin:24px auto 4px;cursor:pointer}
+.heart{width:100%;display:block;filter:drop-shadow(0 8px 14px rgba(255,60,110,.45));animation:beat 1.2s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.12)}60%{transform:scale(1)}}
+.mini{position:absolute;left:50%;top:50%;font-size:22px;animation:burst 1.1s ease-out forwards}
+@keyframes burst{from{transform:translate(-50%,-50%) scale(.4);opacity:1}to{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.3);opacity:0}}
+
+/* scene + cakes */
+.scene{width:92%;max-width:640px;margin:20px auto;border:3px solid #7a5560;border-radius:22px;overflow:hidden;box-shadow:0 6px 0 #7a5560}
+.scene svg{display:block;width:100%;height:auto}
+.rays{transform-box:fill-box;transform-origin:center;animation:spin 20s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cloud{animation:drift 20s linear infinite}
+@keyframes drift{from{transform:translateX(-160px)}to{transform:translateX(760px)}}
+.cakes{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:20px 10px}
+.cake{width:110px;animation:cb 2.4s ease-in-out infinite}
+@keyframes cb{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+.flame{transform-box:fill-box;transform-origin:bottom center;animation:fl .5s ease-in-out infinite alternate}
+@keyframes fl{from{transform:rotate(-6deg)}to{transform:scale(.85,1.2) rotate(6deg)}}
+</style>
 </head>
 <body>
 
-  <h1>Hello, I'm Dhriti!</h1>
-  <p>Welcome to my first website. I'm a BCA student.</p>
+<!-- kitty drawing (reused) -->
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="kitty" viewBox="0 0 100 100">
+<g stroke="#7a5560" stroke-width="3" stroke-linejoin="round">
+<path d="M16 42 L20 8 L46 25 Z" fill="#fff"/><path d="M84 42 L80 8 L54 25 Z" fill="#fff"/>
+<ellipse cx="50" cy="58" rx="40" ry="34" fill="#fff"/>
+<path d="M74 24 L58 13 L58 35 Z M74 24 L90 13 L90 35 Z" fill="#ff5c8a"/>
+<circle cx="74" cy="24" r="5" fill="#e0245e"/></g>
+<circle cx="36" cy="56" r="4.5" fill="#3b2a30"/><circle cx="64" cy="56" r="4.5" fill="#3b2a30"/>
+<circle cx="34.5" cy="54.5" r="1.5" fill="#fff"/><circle cx="62.5" cy="54.5" r="1.5" fill="#fff"/>
+<circle cx="24" cy="66" r="6" fill="#ff9fbd" opacity=".5"/><circle cx="76" cy="66" r="6" fill="#ff9fbd" opacity=".5"/>
+<ellipse cx="50" cy="64" rx="4" ry="3" fill="#ff7aa8"/>
+<path d="M43 71 Q50 78 57 71" fill="none" stroke="#7a5560" stroke-width="3" stroke-linecap="round"/>
+<g stroke="#7a5560" stroke-width="2.5" stroke-linecap="round"><path d="M6 58 L20 61 M6 68 L20 67 M94 58 L80 61 M94 68 L80 67"/></g>
+</symbol></defs></svg>
 
-  <!-- Heart -->
-  <svg class="heart" viewBox="0 0 100 90">
-    <defs>
-      <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#ff7aa8"/>
-        <stop offset="1" stop-color="#e0245e"/>
-      </linearGradient>
-    </defs>
-    <path d="M50 88 C20 62 2 44 2 26 C2 12 13 2 27 2 C37 2 46 8 50 16 C54 8 63 2 73 2 C87 2 98 12 98 26 C98 44 80 62 50 88 Z"
-          fill="url(#hg)" stroke="#9c1740" stroke-width="3" stroke-linejoin="round"/>
-    <ellipse cx="27" cy="22" rx="9" ry="5" fill="#fff" opacity=".45" transform="rotate(-30 27 22)"/>
-    <text x="50" y="46" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold"
-          font-family="Comic Sans MS, cursive">MISS</text>
-  </svg>
+<div class="bg" id="bg"></div>
 
-  <!-- Mountains -->
-  <div class="scene">
-    <svg viewBox="0 0 600 260">
-      <defs>
-        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#9edcff"/>
-          <stop offset="1" stop-color="#fde8f1"/>
-        </linearGradient>
-      </defs>
-      <rect width="600" height="260" fill="url(#sky)"/>
+<!-- name popup -->
+<div class="ov" id="ov"><div class="card">
+<svg class="kitty" viewBox="0 0 100 100"><use href="#kitty"/></svg>
+<h2>Hi there! What's your name?</h2>
+<input id="nm" maxlength="20" placeholder="Type your name" autocomplete="off">
+<button id="go">Let's go ✨</button>
+</div></div>
 
-      <!-- sun -->
-      <g transform="translate(500 60)">
-        <g class="sun-rays" stroke="#ffb703" stroke-width="4" stroke-linecap="round">
-          <line x1="0" y1="-48" x2="0" y2="-62"/><line x1="0" y1="48" x2="0" y2="62"/>
-          <line x1="-48" y1="0" x2="-62" y2="0"/><line x1="48" y1="0" x2="62" y2="0"/>
-          <line x1="34" y1="34" x2="44" y2="44"/><line x1="-34" y1="-34" x2="-44" y2="-44"/>
-          <line x1="34" y1="-34" x2="44" y2="-44"/><line x1="-34" y1="34" x2="-44" y2="44"/>
-        </g>
-        <circle r="34" fill="#ffd54a" stroke="#e09f00" stroke-width="3"/>
-        <circle cx="-11" cy="-4" r="3" fill="#7a4a00"/><circle cx="11" cy="-4" r="3" fill="#7a4a00"/>
-        <path d="M-10 10 Q0 20 10 10" fill="none" stroke="#7a4a00" stroke-width="3" stroke-linecap="round"/>
-      </g>
+<div class="page">
+<div id="greet"></div>
+<p>Welcome to Dhriti's first website. I'm a BCA student.</p>
 
-      <!-- clouds -->
-      <g class="cloud1" fill="#fff" stroke="#9bb7c9" stroke-width="3">
-        <path d="M60 70 q-22 0 -22 -16 q0 -16 20 -14 q6 -18 28 -12 q16 4 14 18 q18 2 14 20 z"/>
-      </g>
-      <g class="cloud2" fill="#fff" stroke="#9bb7c9" stroke-width="3" transform="translate(0 40)">
-        <path d="M60 60 q-18 0 -18 -12 q0 -14 18 -12 q6 -14 24 -8 q14 4 12 16 q14 2 10 16 z"/>
-      </g>
+<div class="thought" id="thought">Tap my friend below for a surprise 💗</div>
+<svg class="kitty" id="kit" viewBox="0 0 100 100"><use href="#kitty"/></svg>
+<button id="kb">Click me, kitty! 🐾</button>
 
-      <!-- birds -->
-      <g class="bird" fill="none" stroke="#5b3a4a" stroke-width="3" stroke-linecap="round">
-        <path d="M0 110 q8 -10 16 0 q8 -10 16 0"/>
-      </g>
+<div class="hw" id="hw">
+<svg class="heart" viewBox="0 0 100 90">
+<defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7aa8"/><stop offset="1" stop-color="#e0245e"/></linearGradient></defs>
+<path d="M50 88 C20 62 2 44 2 26 C2 12 13 2 27 2 C37 2 46 8 50 16 C54 8 63 2 73 2 C87 2 98 12 98 26 C98 44 80 62 50 88 Z" fill="url(#hg)" stroke="#9c1740" stroke-width="3" stroke-linejoin="round"/>
+<ellipse cx="27" cy="22" rx="9" ry="5" fill="#fff" opacity=".45" transform="rotate(-30 27 22)"/>
+<text x="50" y="46" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold" font-family="Comic Sans MS,cursive">MISS</text>
+</svg></div>
+<p>(tap the heart!)</p>
 
-      <!-- back mountains -->
-      <path d="M-10 230 L110 90 L200 190 L290 70 L420 230 Z" fill="#a9b8e8" stroke="#6a77b0" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M290 70 L262 108 L282 100 L292 114 L305 98 L322 108 Z" fill="#fff" stroke="#6a77b0" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M110 90 L88 118 L104 112 L112 124 L124 110 L136 118 Z" fill="#fff" stroke="#6a77b0" stroke-width="3" stroke-linejoin="round"/>
+<div class="scene"><svg viewBox="0 0 600 260">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9edcff"/><stop offset="1" stop-color="#fde8f1"/></linearGradient></defs>
+<rect width="600" height="260" fill="url(#sky)"/>
+<g transform="translate(500 60)"><g class="rays" stroke="#ffb703" stroke-width="4" stroke-linecap="round"><path d="M0-48V-62M0 48V62M-48 0H-62M48 0H62M34 34L44 44M-34-34L-44-44M34-34L44-44M-34 34L-44 44"/></g>
+<circle r="34" fill="#ffd54a" stroke="#e09f00" stroke-width="3"/><circle cx="-11" cy="-4" r="3" fill="#7a4a00"/><circle cx="11" cy="-4" r="3" fill="#7a4a00"/>
+<path d="M-10 10Q0 20 10 10" fill="none" stroke="#7a4a00" stroke-width="3" stroke-linecap="round"/></g>
+<g class="cloud" fill="#fff" stroke="#9bb7c9" stroke-width="3"><path d="M60 70q-22 0-22-16 0-16 20-14 6-18 28-12 16 4 14 18 18 2 14 20z"/></g>
+<path d="M-10 230L110 90 200 190 290 70 420 230Z" fill="#a9b8e8" stroke="#6a77b0" stroke-width="3" stroke-linejoin="round"/>
+<path d="M290 70L262 108 282 100 292 114 305 98 322 108Z" fill="#fff" stroke="#6a77b0" stroke-width="3" stroke-linejoin="round"/>
+<path d="M260 240L420 110 600 240Z" fill="#8fd0a8" stroke="#4c8a67" stroke-width="3" stroke-linejoin="round"/>
+<path d="M420 110L396 136 412 130 422 142 434 128 448 136Z" fill="#fff" stroke="#4c8a67" stroke-width="3" stroke-linejoin="round"/>
+<path d="M0 240Q120 195 250 235 380 205 600 238V260H0Z" fill="#b8e68f" stroke="#6aa04a" stroke-width="3"/>
+<circle cx="90" cy="238" r="5" fill="#ff8fb3"/><circle cx="130" cy="244" r="5" fill="#ffd54a"/><circle cx="520" cy="246" r="5" fill="#ff8fb3"/>
+</svg></div>
 
-      <!-- front mountain -->
-      <path d="M260 240 L420 110 L600 240 Z" fill="#8fd0a8" stroke="#4c8a67" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M420 110 L396 136 L412 130 L422 142 L434 128 L448 136 Z" fill="#fff" stroke="#4c8a67" stroke-width="3" stroke-linejoin="round"/>
+<div class="cakes" id="cakes"></div>
+<svg id="ct" style="display:none" viewBox="0 0 120 150">
+<ellipse cx="60" cy="138" rx="52" ry="9" fill="#e8d9ef" stroke="#7a5560" stroke-width="3"/>
+<rect x="18" y="92" width="84" height="42" rx="10" fill="var(--c)" stroke="#7a5560" stroke-width="3"/>
+<rect x="30" y="58" width="60" height="38" rx="10" fill="var(--c)" stroke="#7a5560" stroke-width="3"/>
+<path d="M30 70q8 12 15 0 8 12 15 0 8 12 15 0 8 12 15 0" fill="#fff" stroke="#7a5560" stroke-width="3" stroke-linejoin="round"/>
+<rect x="56" y="34" width="8" height="26" rx="3" fill="#ffe08a" stroke="#7a5560" stroke-width="3"/>
+<path class="flame" d="M60 12q-9 10-3 18 3 4 6 0 6-8-3-18z" fill="#ff9d2e" stroke="#c4571a" stroke-width="2.5"/>
+<circle cx="40" cy="120" r="4" fill="#ff5c8a"/><circle cx="80" cy="120" r="4" fill="#ff5c8a"/>
+</svg>
+</div>
 
-      <!-- grass hills -->
-      <path d="M0 240 Q120 195 250 235 Q380 205 600 238 L600 260 L0 260 Z" fill="#b8e68f" stroke="#6aa04a" stroke-width="3"/>
-      <circle cx="90" cy="238" r="5" fill="#ff8fb3"/><circle cx="130" cy="244" r="5" fill="#ffd54a"/>
-      <circle cx="520" cy="246" r="5" fill="#ff8fb3"/><circle cx="470" cy="242" r="5" fill="#fff"/>
-    </svg>
-  </div>
+<script>
+var $=function(i){return document.getElementById(i)};
+var R=Math.random;
 
-  <!-- Cakes (made by the script below) -->
-  <div class="cakes" id="cakes"></div>
+// background cartoons (start right away)
+var bg=$("bg");
+[["☁️",8,60,40],["🎈",30,46,34],["🦋",55,34,22],["🐝",72,30,18],["☁️",85,70,50],["🐥",45,36,28],["🚀",18,34,26],["🌈",65,60,46]].forEach(function(f,i){
+ var e=document.createElement("div");e.className="fly";e.textContent=f[0];
+ e.style.top=f[1]+"%";e.style.fontSize=f[2]+"px";
+ e.style.animationDuration=f[3]+"s,"+(2.5+i*.3)+"s";
+ e.style.animationDelay="-"+(i*5)+"s,0s";bg.appendChild(e)});
+for(var i=0;i<22;i++){var s=document.createElement("div");s.className="star";s.textContent="✦";
+ s.style.left=R()*98+"vw";s.style.top=R()*90+"vh";s.style.fontSize=(10+R()*14)+"px";s.style.animationDelay=R()*2+"s";bg.appendChild(s)}
+var ic=["❤","✨","💖","🌸"];
+for(var j=0;j<14;j++){var h=document.createElement("span");h.className="rise";h.textContent=ic[j%4];
+ h.style.left=R()*95+"vw";h.style.animationDelay=R()*9+"s";h.style.animationDuration=(7+R()*6)+"s";bg.appendChild(h)}
 
-  <!-- Master cake drawing -->
-  <svg id="cakeTemplate" style="display:none" viewBox="0 0 120 150">
-    <ellipse cx="60" cy="138" rx="52" ry="9" fill="#e8d9ef" stroke="#7a5560" stroke-width="3"/>
-    <rect x="18" y="92" width="84" height="42" rx="10" fill="var(--c)" stroke="#7a5560" stroke-width="3"/>
-    <rect x="30" y="58" width="60" height="38" rx="10" fill="var(--c)" stroke="#7a5560" stroke-width="3"/>
-    <path d="M30 70 q8 12 15 0 q8 12 15 0 q8 12 15 0 q8 12 15 0" fill="#fff" stroke="#7a5560" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M18 104 q10 14 17 0 q10 14 17 0 q10 14 17 0 q10 14 17 0 q10 14 15 0" fill="#fff" stroke="#7a5560" stroke-width="3" stroke-linejoin="round"/>
-    <rect x="56" y="34" width="8" height="26" rx="3" fill="#ffe08a" stroke="#7a5560" stroke-width="3"/>
-    <path class="flame" d="M60 12 q-9 10 -3 18 q3 4 6 0 q6 -8 -3 -18 z" fill="#ff9d2e" stroke="#c4571a" stroke-width="2.5"/>
-    <circle cx="40" cy="120" r="4" fill="#ff5c8a"/><circle cx="80" cy="120" r="4" fill="#ff5c8a"/>
-  </svg>
+// cakes
+["#ffb3d1","#ffe08a","#b9a6ff"].forEach(function(c,i){
+ var k=$("ct").cloneNode(true);k.removeAttribute("id");k.setAttribute("class","cake");
+ k.style.display="block";k.style.setProperty("--c",c);k.style.animationDelay=i*.4+"s";$("cakes").appendChild(k)});
 
-  <script>
-    // Build 3 cakes in different colours
-    var colors = ["#ffb3d1", "#ffe08a", "#b9a6ff"];
-    var template = document.getElementById("cakeTemplate");
-    var box = document.getElementById("cakes");
-    colors.forEach(function (c, i) {
-      var cake = template.cloneNode(true);
-      cake.removeAttribute("id");
-      cake.setAttribute("class", "cake");
-      cake.style.display = "block";
-      cake.style.setProperty("--c", c);
-      cake.style.animationDelay = (i * 0.4) + "s";
-      box.appendChild(cake);
-    });
+// cute thoughts
+var T=["You make the world a little brighter ☀️","Today is a good day for something sweet 🍰","Small steps still move you forward 🌱","Somebody is smiling because of you 💗","Be kind to yourself today 🌸","You're doing better than you think ✨"],ti=0;
+function think(){ti=(ti+1)%T.length;var t=$("thought");t.style.animation="none";void t.offsetWidth;t.style.animation="";t.textContent=T[ti]}
+setInterval(think,5000);
 
-    // Floating hearts and sparkles
-    var icons = ["❤", "✨", "💖", "🌸"];
-    for (var i = 0; i < 14; i++) {
-      var s = document.createElement("span");
-      s.className = "float";
-      s.textContent = icons[i % icons.length];
-      s.style.left = (Math.random() * 95) + "vw";
-      s.style.animationDelay = (Math.random() * 9) + "s";
-      s.style.animationDuration = (7 + Math.random() * 6) + "s";
-      document.body.appendChild(s);
-    }
-  </script>
+// kitty jump
+function jump(){var k=$("kit");k.classList.remove("jump");void k.offsetWidth;k.classList.add("jump");think()}
+$("kit").onclick=jump;$("kb").onclick=jump;
+
+// heart burst
+$("hw").onclick=function(){for(var i=0;i<14;i++){var m=document.createElement("span");m.className="mini";m.textContent=i%3?"💗":"✨";
+ var a=R()*6.28,d=70+R()*70;m.style.setProperty("--dx",Math.cos(a)*d+"px");m.style.setProperty("--dy",Math.sin(a)*d+"px");
+ $("hw").appendChild(m);(function(x){setTimeout(function(){x.remove()},1100)})(m)}};
+
+// name popup + animated greeting
+function start(){
+ var n=$("nm").value.trim()||"friend",g=$("greet");g.textContent="";
+ Array.from("Hi "+n+"! Have a good day ✨").forEach(function(c,i){
+  var s=document.createElement("span");s.textContent=c;s.style.animationDelay=i*.06+"s";
+  s.style.color="hsl("+(i*28%360)+",75%,55%)";g.appendChild(s)});
+ $("ov").classList.add("hide");setTimeout(function(){$("ov").style.display="none"},500);
+}
+$("go").onclick=start;
+$("nm").onkeydown=function(e){if(e.key==="Enter")start()};
+$("nm").focus();
+</script>
 </body>
 </html>
