@@ -1,38 +1,217 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dhriti's Website</title>
-</head>
-<body>
-  <h1>Hello, I'm Dhriti!</h1>
-  <p>Welcome to my first website. I'm a BCA student.</p>
-</body>
-
+  <style>
+    * { box-sizing: border-box; }
     body {
+      margin: 0;
+      min-height: 100vh;
       text-align: center;
-      font-family: Arial, sans-serif;
+      font-family: "Comic Sans MS", "Segoe Print", cursive, sans-serif;
+      color: #5b3a4a;
+      background: linear-gradient(160deg, #ffe3ef, #e9defa 55%, #d9f1ff);
+      overflow-x: hidden;
     }
+    h1 { margin: 30px 10px 6px; font-size: 2.2rem; }
+    p { margin: 0 10px 10px; font-size: 1.1rem; }
+
+    /* ---------- Beating heart ---------- */
     .heart {
-      width: 180px;
-      height: 165px;
-      margin: 40px auto;
+      width: 210px;
       display: block;
-      animation: beat 1s infinite;
+      margin: 20px auto;
+      filter: drop-shadow(0 8px 14px rgba(255, 60, 110, .45));
+      animation: beat 1.2s ease-in-out infinite;
     }
     @keyframes beat {
-      0%   { transform: scale(1); }
-      25%  { transform: scale(1.15); }
-      50%  { transform: scale(1); }
-      75%  { transform: scale(1.15); }
-      100% { transform: scale(1); }
+      0%, 100% { transform: scale(1); }
+      15%      { transform: scale(1.18); }
+      30%      { transform: scale(1); }
+      45%      { transform: scale(1.12); }
+      60%      { transform: scale(1); }
     }
-  
 
-  <svg class="heart" viewBox="0 0 32 29">
-    <path fill="red" d="M23.6 0c-3.4 0-6.3 2.7-7.6 5.6C14.7 2.7 11.8 0 8.4 0 3.8 0 0 3.8 0 8.4c0 9.4 9.5 11.9 16 21.2 6.1-9.3 16-12.1 16-21.2C32 3.8 28.2 0 23.6 0z"/>
-    <text x="16" y="14" text-anchor="middle" fill="white" font-size="6" font-weight="bold">MISS</text>
+    /* ---------- Scene (mountains) ---------- */
+    .scene {
+      width: 92%;
+      max-width: 640px;
+      margin: 20px auto;
+      border: 3px solid #7a5560;
+      border-radius: 22px;
+      overflow: hidden;
+      background: #bfe6ff;
+      box-shadow: 0 6px 0 #7a5560;
+    }
+    .scene svg { display: block; width: 100%; height: auto; }
+    .sun-rays { transform-box: fill-box; transform-origin: center; animation: spin 20s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .cloud1 { animation: drift 18s linear infinite; }
+    .cloud2 { animation: drift 26s linear infinite; animation-delay: -10s; }
+    @keyframes drift {
+      from { transform: translateX(-160px); }
+      to   { transform: translateX(760px); }
+    }
+    .bird { animation: fly 9s linear infinite; }
+    @keyframes fly {
+      from { transform: translate(-60px, 0); }
+      50%  { transform: translate(300px, -14px); }
+      to   { transform: translate(700px, 0); }
+    }
+
+    /* ---------- Cakes ---------- */
+    .cakes {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 20px 10px;
+    }
+    .cake { width: 110px; animation: bob 2.4s ease-in-out infinite; }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50%      { transform: translateY(-12px) rotate(3deg); }
+    }
+    .flame {
+      transform-box: fill-box;
+      transform-origin: bottom center;
+      animation: flicker .5s ease-in-out infinite alternate;
+    }
+    @keyframes flicker {
+      from { transform: scale(1, 1) rotate(-6deg); }
+      to   { transform: scale(.85, 1.2) rotate(6deg); }
+    }
+
+    /* ---------- Floating hearts and sparkles ---------- */
+    .float {
+      position: fixed;
+      bottom: -40px;
+      font-size: 22px;
+      opacity: .8;
+      animation: rise 9s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes rise {
+      to { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hello, I'm Dhriti!</h1>
+  <p>Welcome to my first website. I'm a BCA student.</p>
+
+  <!-- Heart -->
+  <svg class="heart" viewBox="0 0 100 90">
+    <defs>
+      <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ff7aa8"/>
+        <stop offset="1" stop-color="#e0245e"/>
+      </linearGradient>
+    </defs>
+    <path d="M50 88 C20 62 2 44 2 26 C2 12 13 2 27 2 C37 2 46 8 50 16 C54 8 63 2 73 2 C87 2 98 12 98 26 C98 44 80 62 50 88 Z"
+          fill="url(#hg)" stroke="#9c1740" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="27" cy="22" rx="9" ry="5" fill="#fff" opacity=".45" transform="rotate(-30 27 22)"/>
+    <text x="50" y="46" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold"
+          font-family="Comic Sans MS, cursive">MISS</text>
   </svg>
+
+  <!-- Mountains -->
+  <div class="scene">
+    <svg viewBox="0 0 600 260">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#9edcff"/>
+          <stop offset="1" stop-color="#fde8f1"/>
+        </linearGradient>
+      </defs>
+      <rect width="600" height="260" fill="url(#sky)"/>
+
+      <!-- sun -->
+      <g transform="translate(500 60)">
+        <g class="sun-rays" stroke="#ffb703" stroke-width="4" stroke-linecap="round">
+          <line x1="0" y1="-48" x2="0" y2="-62"/><line x1="0" y1="48" x2="0" y2="62"/>
+          <line x1="-48" y1="0" x2="-62" y2="0"/><line x1="48" y1="0" x2="62" y2="0"/>
+          <line x1="34" y1="34" x2="44" y2="44"/><line x1="-34" y1="-34" x2="-44" y2="-44"/>
+          <line x1="34" y1="-34" x2="44" y2="-44"/><line x1="-34" y1="34" x2="-44" y2="44"/>
+        </g>
+        <circle r="34" fill="#ffd54a" stroke="#e09f00" stroke-width="3"/>
+        <circle cx="-11" cy="-4" r="3" fill="#7a4a00"/><circle cx="11" cy="-4" r="3" fill="#7a4a00"/>
+        <path d="M-10 10 Q0 20 10 10" fill="none" stroke="#7a4a00" stroke-width="3" stroke-linecap="round"/>
+      </g>
+
+      <!-- clouds -->
+      <g class="cloud1" fill="#fff" stroke="#9bb7c9" stroke-width="3">
+        <path d="M60 70 q-22 0 -22 -16 q0 -16 20 -14 q6 -18 28 -12 q16 4 14 18 q18 2 14 20 z"/>
+      </g>
+      <g class="cloud2" fill="#fff" stroke="#9bb7c9" stroke-width="3" transform="translate(0 40)">
+        <path d="M60 60 q-18 0 -18 -12 q0 -14 18 -12 q6 -14 24 -8 q14 4 12 16 q14 2 10 16 z"/>
+      </g>
+
+      <!-- birds -->
+      <g class="bird" fill="none" stroke="#5b3a4a" stroke-width="3" stroke-linecap="round">
+        <path d="M0 110 q8 -10 16 0 q8 -10 16 0"/>
+      </g>
+
+      <!-- back mountains -->
+      <path d="M-10 230 L110 90 L200 190 L290 70 L420 230 Z" fill="#a9b8e8" stroke="#6a77b0" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M290 70 L262 108 L282 100 L292 114 L305 98 L322 108 Z" fill="#fff" stroke="#6a77b0" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M110 90 L88 118 L104 112 L112 124 L124 110 L136 118 Z" fill="#fff" stroke="#6a77b0" stroke-width="3" stroke-linejoin="round"/>
+
+      <!-- front mountain -->
+      <path d="M260 240 L420 110 L600 240 Z" fill="#8fd0a8" stroke="#4c8a67" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M420 110 L396 136 L412 130 L422 142 L434 128 L448 136 Z" fill="#fff" stroke="#4c8a67" stroke-width="3" stroke-linejoin="round"/>
+
+      <!-- grass hills -->
+      <path d="M0 240 Q120 195 250 235 Q380 205 600 238 L600 260 L0 260 Z" fill="#b8e68f" stroke="#6aa04a" stroke-width="3"/>
+      <circle cx="90" cy="238" r="5" fill="#ff8fb3"/><circle cx="130" cy="244" r="5" fill="#ffd54a"/>
+      <circle cx="520" cy="246" r="5" fill="#ff8fb3"/><circle cx="470" cy="242" r="5" fill="#fff"/>
+    </svg>
+  </div>
+
+  <!-- Cakes (made by the script below) -->
+  <div class="cakes" id="cakes"></div>
+
+  <!-- Master cake drawing -->
+  <svg id="cakeTemplate" style="display:none" viewBox="0 0 120 150">
+    <ellipse cx="60" cy="138" rx="52" ry="9" fill="#e8d9ef" stroke="#7a5560" stroke-width="3"/>
+    <rect x="18" y="92" width="84" height="42" rx="10" fill="var(--c)" stroke="#7a5560" stroke-width="3"/>
+    <rect x="30" y="58" width="60" height="38" rx="10" fill="var(--c)" stroke="#7a5560" stroke-width="3"/>
+    <path d="M30 70 q8 12 15 0 q8 12 15 0 q8 12 15 0 q8 12 15 0" fill="#fff" stroke="#7a5560" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M18 104 q10 14 17 0 q10 14 17 0 q10 14 17 0 q10 14 17 0 q10 14 15 0" fill="#fff" stroke="#7a5560" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="56" y="34" width="8" height="26" rx="3" fill="#ffe08a" stroke="#7a5560" stroke-width="3"/>
+    <path class="flame" d="M60 12 q-9 10 -3 18 q3 4 6 0 q6 -8 -3 -18 z" fill="#ff9d2e" stroke="#c4571a" stroke-width="2.5"/>
+    <circle cx="40" cy="120" r="4" fill="#ff5c8a"/><circle cx="80" cy="120" r="4" fill="#ff5c8a"/>
+  </svg>
+
+  <script>
+    // Build 3 cakes in different colours
+    var colors = ["#ffb3d1", "#ffe08a", "#b9a6ff"];
+    var template = document.getElementById("cakeTemplate");
+    var box = document.getElementById("cakes");
+    colors.forEach(function (c, i) {
+      var cake = template.cloneNode(true);
+      cake.removeAttribute("id");
+      cake.setAttribute("class", "cake");
+      cake.style.display = "block";
+      cake.style.setProperty("--c", c);
+      cake.style.animationDelay = (i * 0.4) + "s";
+      box.appendChild(cake);
+    });
+
+    // Floating hearts and sparkles
+    var icons = ["❤", "✨", "💖", "🌸"];
+    for (var i = 0; i < 14; i++) {
+      var s = document.createElement("span");
+      s.className = "float";
+      s.textContent = icons[i % icons.length];
+      s.style.left = (Math.random() * 95) + "vw";
+      s.style.animationDelay = (Math.random() * 9) + "s";
+      s.style.animationDuration = (7 + Math.random() * 6) + "s";
+      document.body.appendChild(s);
+    }
+  </script>
 </body>
 </html>
-</html>
-
